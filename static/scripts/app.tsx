@@ -1,4 +1,6 @@
-/// <reference path="./typings/react.d.ts" />
+/// <reference path="./typings/main.d.ts" />
+import React = __React;
+import ReactDOM = React.__DOM;
 
 var socket = new WebSocket("ws://localhost:8080/ws");
 
