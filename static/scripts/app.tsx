@@ -7,4 +7,5 @@ ReactDOM.render(
   document.getElementById('content')
 );
 
-var ws = new ChatSocket('ws://localhost:8080/ws');
+let ws = new ChatSocket('ws://localhost:8080/ws');
+ws.connect();
