@@ -1,13 +1,12 @@
 /// <reference path="typings/main.d.ts" />
 import UserList from './userlist';
-import ChatSocket from './ws';
+import ChatSocket from './chatsocket';
 
 ReactDOM.render(
   <div>
-    <UserList></UserList>
-    <UserList></UserList>
+    <UserList users={['John', 'Jill', 'Jordan']}></UserList>
   </div>,
   document.getElementById('content')
 );
 
-let ws = new ChatSocket('ws://localhost:8080/ws');
+var ws = new ChatSocket('ws://localhost:8080/ws');
