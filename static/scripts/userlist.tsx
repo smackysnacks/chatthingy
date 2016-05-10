@@ -1,19 +1,21 @@
 /// <reference path="typings/main.d.ts" />
 
-interface Props {
+interface State {
   users: string[]
 }
 
-class UserList extends React.Component<Props, {}> {
-  constructor(props: Props) {
-    super(props);
+class UserList extends React.Component<{}, State> {
+  constructor() {
+    super();
+
+    this.state = {users: []};
   }
 
   render() {
-    this.props.users.sort();
+    this.state.users.sort();
 
     let userListItems = [];
-    for (let user of this.props.users) {
+    for (let user of this.state.users) {
       userListItems.push(<li>{user}</li>);
     }
 

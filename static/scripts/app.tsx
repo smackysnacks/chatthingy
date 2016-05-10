@@ -4,7 +4,7 @@ import ChatSocket from './chatsocket';
 
 ReactDOM.render(
   <div>
-    <UserList users={['John', 'Jill', 'Jordan']}></UserList>
+    <UserList />
   </div>,
   document.getElementById('content')
 );
