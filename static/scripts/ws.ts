@@ -1,13 +1,21 @@
-export let socket = new WebSocket("ws://localhost:8080/ws");
+class ChatSocket {
+  socket: WebSocket;
 
-socket.onopen = function (event) {
-    console.log("onopen event: " + event);
-};
+  constructor(websocketUrl: string) {
+    this.socket = new WebSocket(websocketUrl);
 
-socket.onerror = function (event) {
-    console.log("onerror event: " + event);
-};
+    this.socket.onopen = function (event) {
+      console.log("onopen event: " + event);
+    };
 
-socket.onmessage = function(event) {
-    console.log("message is: " + event.data);
-};
+    this.socket.onerror = function (event) {
+      console.log("onerror event: " + event);
+    };
+
+    this.socket.onmessage = function(event) {
+      console.log("message is: " + event.data);
+    };
+  }
+}
+
+export default ChatSocket;

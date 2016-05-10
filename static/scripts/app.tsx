@@ -1,22 +1,13 @@
 /// <reference path="typings/main.d.ts" />
-// import React = __React;
-// import ReactDOM = React.__DOM;
-import * as ws from "./ws";
+import UserList from './userlist';
+import ChatSocket from './ws';
 
-console.log("before");
-console.log(ws.socket);
-console.log("after");
-
-var CommentBox = React.createClass({
-  render: function() {
-    return (
-      <div className="commentBox">
-        Hello, world! I am a CommentBox.
-      </div>
-    );
-  }
-});
 ReactDOM.render(
-  <CommentBox />,
+  <div>
+    <UserList></UserList>
+    <UserList></UserList>
+  </div>,
   document.getElementById('content')
 );
+
+let ws = new ChatSocket('ws://localhost:8080/ws');
