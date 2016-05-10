@@ -7,3 +7,5 @@
 * `npm install -g typings tsc`
 * `(cd static/scripts/ && typings install && tsc --jsx react *.{tsx,ts})`
 * `go run *.go`
+
+Navigate to `http://localhost:8080`
