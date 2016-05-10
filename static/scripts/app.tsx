@@ -3,9 +3,7 @@ import UserList from './userlist';
 import ChatSocket from './chatsocket';
 
 ReactDOM.render(
-  <div>
-    <UserList />
-  </div>,
+  <UserList />,
   document.getElementById('content')
 );
 

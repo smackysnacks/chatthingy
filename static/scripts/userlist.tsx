@@ -1,4 +1,5 @@
 /// <reference path="typings/main.d.ts" />
+import UserListItem from './userlistitem';
 
 interface State {
   users: string[]
@@ -16,7 +17,7 @@ class UserList extends React.Component<{}, State> {
 
     let userListItems = [];
     for (let user of this.state.users) {
-      userListItems.push(<li>{user}</li>);
+      userListItems.push(<UserListItem name={user} />);
     }
 
     return (
