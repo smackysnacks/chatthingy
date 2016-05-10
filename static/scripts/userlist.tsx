@@ -12,6 +12,28 @@ class UserList extends React.Component<{}, State> {
     this.state = {users: []};
   }
 
+  onUserJoin(username: string) {
+    var newUsers = this.state.users.concat(username);
+    this.setState({users: newUsers});
+  }
+
+  onUserLeave(username: string) {
+    var newUsers = this.state.users.filter(function(user) {
+      return user !== username;
+    });
+    this.setState({users: newUsers});
+  }
+
+  componentDidMount() {
+    // TODO: setup event handlers from ChatSocket
+    // such as joins and leaves
+  }
+
+  componentWillUnmount() {
+    // TODO: tear down event handlers that were
+    // registered in componentDidMount()
+  }
+
   render() {
     this.state.users.sort();
 
