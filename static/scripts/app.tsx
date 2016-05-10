@@ -1,22 +1,12 @@
-/// <reference path="./typings/main.d.ts" />
-import React = __React;
-import ReactDOM = React.__DOM;
+/// <reference path="typings/main.d.ts" />
+// import React = __React;
+// import ReactDOM = React.__DOM;
+import * as ws from "./ws";
 
-var socket = new WebSocket("ws://localhost:8080/ws");
+console.log("before");
+console.log(ws.socket);
+console.log("after");
 
-socket.onopen = function (event) {
-  console.log("onopen event: " + event);
-};
-
-socket.onerror = function (event) {
-  console.log("onerror event: " + event);
-};
-
-socket.onmessage = function(event) {
-  console.log("message is: " + event.data);
-};
-
-/* REACTJS STUFF */
 var CommentBox = React.createClass({
   render: function() {
     return (
