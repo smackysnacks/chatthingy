@@ -12,6 +12,11 @@ var upgrader = websocket.Upgrader{
 	WriteBufferSize: 1024,
 }
 
+type message struct {
+	Type string `json:"type"`
+	Data string `json:"data"`
+}
+
 type connection struct {
 	ws *websocket.Conn
 }
