@@ -27,6 +27,10 @@ class ChatSocket {
   public connect() {
     this.socket = new WebSocket(this.websocketUrl);
 
+    this.onUserJoinCallbacks = [];
+    this.onUserLeaveCallbacks = [];
+    this.onNewMessageCallbacks = [];
+
     this.socket.onopen = this.onOpen;
     this.socket.onerror = this.onError;
     this.socket.onmessage = this.onMessage;
