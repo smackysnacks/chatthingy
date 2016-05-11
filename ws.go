@@ -22,9 +22,12 @@ type message struct {
 
 type user struct {
 	name string
+	ws   *websocket.Conn
 }
 
 type Users []user
+
+var userslock = sync.Mutex{}
 
 func (u Users) Len() int {
 	return len(u)
@@ -40,18 +43,6 @@ func (u Users) Swap(i, j int) {
 
 var users = make(Users, 0)
 
-type connection struct {
-	ws *websocket.Conn
-}
-
-var connections = struct {
-	mutex sync.Mutex
-	conns map[*connection]struct{}
-}{
-	sync.Mutex{},
-	make(map[*connection]struct{}),
-}
-
 func genUsername() string {
 	now := time.Now()
 	digits := fmt.Sprintf("%v", now.UnixNano())
@@ -59,29 +50,44 @@ func genUsername() string {
 	return digits[11:]
 }
 
-func cleanupConnection(c *connection) {
-	if _, ok := connections.conns[c]; ok {
-		connections.mutex.Lock()
-		delete(connections.conns, c)
-		connections.mutex.Unlock()
+func disconnectUser(u *user) {
+
+	name := u.name
+
+	userslock.Lock()
+	// remove the user from users slice
+	for i, _ := range users {
+		if users[i].name == u.name {
+			users = append(users[:i], users[i+1:]...)
+			break
+		}
+	}
+	userslock.Unlock()
+
+	// inform other users of leave
+	broadcastMessage(message{Type: "leave", Data: name})
+}
+
+func broadcastMessage(m message) {
+	userslock.Lock()
+	defer userslock.Unlock()
+
+	for _, u := range users {
+		u.ws.WriteJSON(m)
 	}
 }
 
-func readLoop(c *connection) {
+func readLoop(u *user) {
 	for {
-		messageType, p, err := c.ws.ReadMessage()
+		messageType, p, err := u.ws.ReadMessage()
 		if err != nil {
-			cleanupConnection(c)
+			disconnectUser(u)
 			return
 		}
 
-		// write the message to all connected clients
+		// text messages should be broadcast to all users
 		if messageType == websocket.TextMessage {
-			connections.mutex.Lock()
-			for conn, _ := range connections.conns {
-				conn.ws.WriteMessage(websocket.TextMessage, p)
-			}
-			connections.mutex.Unlock()
+			broadcastMessage(message{Type: "message", Data: string(p)})
 		}
 	}
 }
@@ -102,26 +108,25 @@ func Websocket(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// add generated user to users slice and sort by name
-	users = append(users, user{name: name})
+	connectinguser := user{name: name, ws: ws}
+	users = append(users, connectinguser)
 	sort.Sort(users)
 
-	c := &connection{ws: ws}
-	connections.conns[c] = struct{}{}
-	go readLoop(c)
+	go readLoop(&connectinguser)
 
 	// tell all connected clients that user has joined
 	msg := message{Type: "join", Data: name}
-	for conn, _ := range connections.conns {
-		conn.ws.WriteJSON(msg)
+	for _, u := range users {
+		u.ws.WriteJSON(msg)
 	}
 
 	// tell this client about all other users
-	for _, user := range users {
-		if user.name == name {
+	for _, u := range users {
+		if u.name == name {
 			continue
 		}
 
-		msg = message{Type: "join", Data: user.name}
-		c.ws.WriteJSON(msg)
+		msg = message{Type: "join", Data: u.name}
+		connectinguser.ws.WriteJSON(msg)
 	}
 }
