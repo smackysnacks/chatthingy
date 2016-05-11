@@ -4,8 +4,9 @@
 
 
 ## Building
-* `npm install -g typings typescript`
-* `cd static/scripts && typings install && tsc --jsx react --module AMD *.{tsx,ts}`
-* `cd ../../ && go run *.go`
+`make`
+
+## Running
+`./chatthingy`
 
 Navigate to `http://localhost:8080`
