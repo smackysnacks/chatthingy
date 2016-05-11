@@ -30,13 +30,13 @@ class UserList extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    // TODO: setup event handlers from ChatSocket
-    // such as joins and leaves
+    this.props.chatsocket.addOnUserJoinCallback({id: '1', f: this.onUserJoin});
+    this.props.chatsocket.addOnUserLeaveCallback({id: '1', f: this.onUserLeave});
   }
 
   componentWillUnmount() {
-    // TODO: tear down event handlers that were
-    // registered in componentDidMount()
+    this.props.chatsocket.removeOnUserJoinCallback('1');
+    this.props.chatsocket.removeOnUserLeaveCallback('1');
   }
 
   render() {
