@@ -30,8 +30,15 @@ class UserList extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.chatsocket.addOnUserJoinCallback({id: '1', f: this.onUserJoin});
-    this.props.chatsocket.addOnUserLeaveCallback({id: '1', f: this.onUserLeave});
+    this.props.chatsocket.addOnUserJoinCallback({
+      id: '1',
+      f: (username: string) => this.onUserJoin(username)
+    });
+
+    this.props.chatsocket.addOnUserLeaveCallback({
+      id: '1',
+      f: (username: string) => this.onUserLeave(username)
+    });
   }
 
   componentWillUnmount() {
