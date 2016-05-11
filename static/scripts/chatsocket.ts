@@ -22,19 +22,19 @@ class ChatSocket {
 
   constructor(websocketUrl: string) {
     this.websocketUrl = websocketUrl;
+
+    this.onUserJoinCallbacks = [];
+    this.onUserLeaveCallbacks = [];
+    this.onNewMessageCallbacks = [];
   }
 
   public connect() {
     this.socket = new WebSocket(this.websocketUrl);
 
-    this.onUserJoinCallbacks = [];
-    this.onUserLeaveCallbacks = [];
-    this.onNewMessageCallbacks = [];
-
-    this.socket.onopen = this.onOpen;
-    this.socket.onerror = this.onError;
-    this.socket.onmessage = this.onMessage;
-    this.socket.onclose = this.onClose;
+    this.socket.onopen = (event) => this.onOpen(event);
+    this.socket.onerror = (event) => this.onError(event);
+    this.socket.onmessage = (event) => this.onMessage(event);
+    this.socket.onclose = (event) => this.onClose(event);
   }
 
   public disconnect() {
