@@ -1,13 +1,18 @@
 /// <reference path="typings/main.d.ts" />
 import UserListItem from './userlistitem';
+import ChatSocket from './chatsocket';
+
+interface Props {
+  chatsocket: ChatSocket
+}
 
 interface State {
   users: string[]
 }
 
-class UserList extends React.Component<{}, State> {
-  constructor() {
-    super();
+class UserList extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
 
     this.state = {users: []};
   }

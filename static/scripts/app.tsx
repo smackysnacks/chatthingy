@@ -2,10 +2,11 @@
 import UserList from './userlist';
 import ChatSocket from './chatsocket';
 
+let ws = new ChatSocket('ws://localhost:8080/ws');
+
 ReactDOM.render(
-  <UserList />,
+  <UserList chatsocket={ws} />,
   document.getElementById('content')
 );
 
-let ws = new ChatSocket('ws://localhost:8080/ws');
 ws.connect();
