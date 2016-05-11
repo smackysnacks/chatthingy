@@ -50,7 +50,19 @@ class ChatSocket {
   }
 
   private onMessage(event: MessageEvent) {
-    console.log('onMessage', event);
+    let json = JSON.parse(event.data);
+
+    if (json.type === 'join') {
+      for (let callback of this.onUserJoinCallbacks) {
+        callback.f(json.data);
+      }
+    } else if (json.type === 'leave') {
+      for (let callback of this.onUserLeaveCallbacks) {
+        callback.f(json.data);
+      }
+    } else if (json.type === 'message') {
+      console.log('json.type === message', json.data);
+    }
   }
 
   private onClose(event : CloseEvent) {
