@@ -38,6 +38,12 @@ class MessageList extends React.Component<Props, State> {
     this.props.chatsocket.removeOnNewMessageCallback('1');
   }
 
+  componentDidUpdate() {
+    // scroll to bottom of messages
+    let node = ReactDOM.findDOMNode(this);
+    node.scrollTop = node.scrollHeight;
+  }
+
   render() {
     let messageListItems = [];
     for (let m of this.state.messages) {
