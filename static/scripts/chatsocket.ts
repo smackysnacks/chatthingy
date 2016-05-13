@@ -45,6 +45,10 @@ class ChatSocket {
     this.socket.close();
   }
 
+  public send(message: string) {
+    this.socket.send(message);
+  }
+
   private onOpen(event) {
     console.log('onOpen', event);
   }
