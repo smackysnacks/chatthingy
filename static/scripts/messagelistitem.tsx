@@ -1,6 +1,7 @@
 /// <reference path="typings/main.d.ts" />
 
 interface Props {
+  firstmessage: boolean,
   username: string,
   message: string
 }
@@ -12,7 +13,7 @@ class MessageListItem extends React.Component<Props, {}> {
 
   render() {
     return (
-      <div className='chat-message'>
+      <div className={this.props.firstmessage ? 'chat-message-first' : 'chat-message'}>
         {this.props.username + ': ' + this.props.message}
       </div>
     );
