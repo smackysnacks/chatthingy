@@ -16,8 +16,8 @@ var upgrader = websocket.Upgrader{
 }
 
 type message struct {
-	Type string `json:"type"`
-	Data string `json:"data"`
+	Type string      `json:"type"`
+	Data interface{} `json:"data"`
 }
 
 type user struct {
@@ -87,7 +87,15 @@ func readLoop(u *user) {
 
 		// text messages should be broadcast to all users
 		if messageType == websocket.TextMessage {
-			broadcastMessage(message{Type: "message", Data: string(p)})
+			m := struct {
+				User    string `json:"user"`
+				Message string `json:"message"`
+			}{
+				u.name,
+				string(p),
+			}
+
+			broadcastMessage(message{Type: "message", Data: m})
 		}
 	}
 }
