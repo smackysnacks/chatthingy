@@ -11,7 +11,7 @@ class ChatInputBar extends React.Component<Props, {}> {
   }
 
   onReturnPressed(event) {
-    if (event.keyCode == 13) { // <enter key>
+    if (event.keyCode == 13 && event.target.value.length > 0) { // <enter key>
       let s = event.target.value.substr(0, 200);
       event.target.value = '';
       this.props.chatsocket.send(s);
