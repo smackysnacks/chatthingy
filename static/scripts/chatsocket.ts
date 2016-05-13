@@ -50,11 +50,9 @@ class ChatSocket {
   }
 
   private onOpen(event) {
-    console.log('onOpen', event);
   }
 
   private onError(event) {
-    console.log('onError', event);
   }
 
   private onMessage(event: MessageEvent) {
@@ -69,12 +67,13 @@ class ChatSocket {
         callback.f(json.data);
       }
     } else if (json.type === 'message') {
-      console.log('json.type === message', json.data);
+      for (let callback of this.onNewMessageCallbacks) {
+        callback.f(json.data.user, json.data.message);
+      }
     }
   }
 
   private onClose(event : CloseEvent) {
-    console.log('onClose', event);
   }
 
   //
