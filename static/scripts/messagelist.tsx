@@ -47,7 +47,7 @@ class MessageList extends React.Component<Props, State> {
     }
 
     return (
-      <div>
+      <div className="messages">
         {messageListItems}
       </div>
     );

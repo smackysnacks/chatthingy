@@ -12,7 +12,7 @@ class MessageListItem extends React.Component<Props, {}> {
 
   render() {
     return (
-      <div class='message'>
+      <div className='chat-message'>
         {this.props.username + ': ' + this.props.message}
       </div>
     );

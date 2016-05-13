@@ -7,10 +7,18 @@ import ChatSocket from './chatsocket';
 let ws = new ChatSocket('ws://' + window.location.host + '/ws');
 
 ReactDOM.render(
-  <div>
-    <UserList chatsocket={ws} />
-    <MessageList chatsocket={ws} />
-    <ChatInputBar chatsocket={ws} />
+  <div className="container">
+    <div className="userlist">
+      <UserList chatsocket={ws} />
+    </div>
+    <div className="messages-input">
+      <div className="flex-column-container">
+        <MessageList chatsocket={ws} />
+        <footer className="chatinput">
+          <ChatInputBar chatsocket={ws} />
+        </footer>
+      </div>
+    </div>
   </div>,
   document.getElementById('content')
 );
