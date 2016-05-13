@@ -39,10 +39,7 @@ class MessageList extends React.Component<Props, State> {
   }
 
   render() {
-    let messageListItems = [
-      <MessageListItem username='Bill' message='This is a test...' />,
-      <MessageListItem username='Karl' message='Hello World!' />,
-    ];
+    let messageListItems = [];
     for (let m of this.state.messages) {
       messageListItems.push(
         <MessageListItem username={m.username} message={m.message} />
