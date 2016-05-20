@@ -11,10 +11,18 @@ class MessageListItem extends React.Component<Props, {}> {
     super(props);
   }
 
+  rawMarkup() {
+    let m = marked(this.props.message, {sanitize: true});
+    m = m.replace(/(<|<\/)p/g, '$1span');
+
+    return { __html: this.props.username + ': ' + m};
+  }
+
   render() {
     return (
-      <div className={this.props.firstmessage ? 'chat-message-first' : 'chat-message'}>
-        {this.props.username + ': ' + this.props.message}
+      <div
+        className={this.props.firstmessage ? 'chat-message-first' : 'chat-message'}
+        dangerouslySetInnerHTML={this.rawMarkup()}>
       </div>
     );
   }
