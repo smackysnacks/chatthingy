@@ -1,4 +1,4 @@
-/// <reference path="typings/main.d.ts" />
+/// <reference path="typings/index.d.ts" />
 import UserList from './userlist';
 import MessageList from './messagelist';
 import ChatInputBar from './chatinputbar';
