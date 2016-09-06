@@ -4,7 +4,7 @@
 
 
 ## Building
-`go get github.com/rmbreak/chatthingy`
+`go get github.com/rmbreak/chatthingy`  
 `cd $GOPATH/src/github.com/rmbreak/chatthingy && make`
 
 ## Running
