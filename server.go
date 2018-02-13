@@ -5,10 +5,10 @@ import (
 	"net/http"
 )
 
-const STATIC_ROOT = "static/"
+const STATIC_ROOT = "webapp/build/"
 
 func Home(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "static/html/index.html")
+	http.ServeFile(w, r, "webapp/build/index.html")
 }
 
 func main() {

@@ -1,9 +1,8 @@
+all: chatthingy
+
 chatthingy:
-	npm install -g typings typescript
-	(cd static/scripts && typings install && tsc --jsx react --module AMD *.{tsx,ts})
+	cd webapp; npm install; npm run build
 	go get && go build
 
 clean:
 	rm -f chatthingy
-
-all: chatthingy

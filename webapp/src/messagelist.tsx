@@ -1,18 +1,20 @@
-/// <reference path="typings/index.d.ts" />
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+
 import MessageListItem from './messagelistitem';
 import ChatSocket from './chatsocket';
 
 interface Message {
-  username: string,
-  message: string
+  username: string;
+  message: string;
 }
 
 interface Props {
-  chatsocket: ChatSocket
+  chatsocket: ChatSocket;
 }
 
 interface State {
-  messages: Message[]
+  messages: Message[];
 }
 
 class MessageList extends React.Component<Props, State> {

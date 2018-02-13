@@ -1,8 +1,8 @@
-/// <reference path="typings/index.d.ts" />
+import * as React from 'react';
 import ChatSocket from './chatsocket';
 
 interface Props {
-  chatsocket: ChatSocket
+  chatsocket: ChatSocket;
 }
 
 class ChatInputBar extends React.Component<Props, {}> {
@@ -11,7 +11,7 @@ class ChatInputBar extends React.Component<Props, {}> {
   }
 
   onReturnPressed(event) {
-    if (event.keyCode == 13 && event.target.value.length > 0) { // <enter key>
+    if (event.keyCode === 13 && event.target.value.length > 0) { // <enter key>
       let s = event.target.value.substr(0, 200);
       event.target.value = '';
       this.props.chatsocket.send(s);
@@ -20,7 +20,7 @@ class ChatInputBar extends React.Component<Props, {}> {
 
   render() {
     return (
-      <input type='text' onKeyDown={(event) => this.onReturnPressed(event)} />
+      <input type="text" onKeyDown={(event) => this.onReturnPressed(event)} />
     );
   }
 }

@@ -1,13 +1,14 @@
-/// <reference path="typings/index.d.ts" />
+import * as React from 'react';
+
 import UserListItem from './userlistitem';
 import ChatSocket from './chatsocket';
 
 interface Props {
-  chatsocket: ChatSocket
+  chatsocket: ChatSocket;
 }
 
 interface State {
-  users: string[]
+  users: string[];
 }
 
 class UserList extends React.Component<Props, State> {

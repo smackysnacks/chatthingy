@@ -1,24 +1,24 @@
-interface onUserJoinCallback {
-  id: string,
-  f: (username: string) => void
+interface OnUserJoinCallback {
+  id: string;
+  f: (username: string) => void;
 }
 
-interface onUserLeaveCallback {
-  id: string,
-  f: (username: string) => void
+interface OnUserLeaveCallback {
+  id: string;
+  f: (username: string) => void;
 }
 
-interface onNewMessageCallback {
-  id: string,
-  f: (username, message: string) => void
+interface OnNewMessageCallback {
+  id: string;
+  f: (username, message: string) => void;
 }
 
 class ChatSocket {
   private websocketUrl: string;
   private socket: WebSocket;
-  private onUserJoinCallbacks: onUserJoinCallback[];
-  private onUserLeaveCallbacks: onUserLeaveCallback[];
-  private onNewMessageCallbacks: onNewMessageCallback[];
+  private onUserJoinCallbacks: OnUserJoinCallback[];
+  private onUserLeaveCallbacks: OnUserLeaveCallback[];
+  private onNewMessageCallbacks: OnNewMessageCallback[];
 
   constructor(websocketUrl: string) {
     this.websocketUrl = websocketUrl;
@@ -49,6 +49,42 @@ class ChatSocket {
     this.socket.send(message);
   }
 
+  //
+  // Callbacks
+  //
+  public addOnUserJoinCallback(callback: OnUserJoinCallback) {
+    this.onUserJoinCallbacks.push(callback);
+  }
+
+  public removeOnUserJoinCallback(id: string) {
+    let length = this.onUserJoinCallbacks.length;
+    this.onUserJoinCallbacks = this.onUserJoinCallbacks.filter(cb => cb.id !== id);
+    return length - this.onUserJoinCallbacks.length;
+  }
+
+  public addOnUserLeaveCallback(callback: OnUserJoinCallback) {
+    this.onUserLeaveCallbacks.push(callback);
+  }
+
+  public removeOnUserLeaveCallback(id: string): number {
+    let length = this.onUserLeaveCallbacks.length;
+    this.onUserLeaveCallbacks = this.onUserLeaveCallbacks.filter(cb => cb.id !== id);
+    return length - this.onUserLeaveCallbacks.length;
+  }
+
+  public addOnNewMessageCallback(callback: OnNewMessageCallback) {
+    this.onNewMessageCallbacks.push(callback);
+  }
+
+  public removeOnNewMessageCallback(id: string): number {
+    let length = this.onNewMessageCallbacks.length;
+    this.onNewMessageCallbacks = this.onNewMessageCallbacks.filter(cb => cb.id !== id);
+    return length - this.onNewMessageCallbacks.length;
+  }
+  //
+  // End Callbacks
+  //
+
   private onOpen(event) {
   }
 
@@ -73,40 +109,7 @@ class ChatSocket {
     }
   }
 
-  private onClose(event : CloseEvent) {
-  }
-
-  //
-  // Callbacks
-  //
-  public addOnUserJoinCallback(callback: onUserJoinCallback) {
-    this.onUserJoinCallbacks.push(callback);
-  }
-
-  public removeOnUserJoinCallback(id: string) {
-    let length = this.onUserJoinCallbacks.length;
-    this.onUserJoinCallbacks = this.onUserJoinCallbacks.filter(cb => cb.id !== id);
-    return length - this.onUserJoinCallbacks.length;
-  }
-
-  public addOnUserLeaveCallback(callback: onUserJoinCallback) {
-    this.onUserLeaveCallbacks.push(callback);
-  }
-
-  public removeOnUserLeaveCallback(id: string) : number {
-    let length = this.onUserLeaveCallbacks.length;
-    this.onUserLeaveCallbacks = this.onUserLeaveCallbacks.filter(cb => cb.id !== id);
-    return length - this.onUserLeaveCallbacks.length;
-  }
-
-  public addOnNewMessageCallback(callback: onNewMessageCallback) {
-    this.onNewMessageCallbacks.push(callback);
-  }
-
-  public removeOnNewMessageCallback(id: string) : number {
-    let length = this.onNewMessageCallbacks.length;
-    this.onNewMessageCallbacks = this.onNewMessageCallbacks.filter(cb => cb.id !== id);
-    return length - this.onNewMessageCallbacks.length;
+  private onClose(event: CloseEvent) {
   }
 }
 

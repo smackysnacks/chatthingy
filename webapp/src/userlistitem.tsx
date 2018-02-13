@@ -1,7 +1,7 @@
-/// <reference path="typings/index.d.ts" />
+import * as React from 'react';
 
 interface Props {
-  name: string
+  name: string;
 }
 
 class UserListItem extends React.Component<Props, {}> {

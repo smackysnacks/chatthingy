@@ -1,9 +1,10 @@
-/// <reference path="typings/index.d.ts" />
+import * as React from 'react';
+import * as marked from 'marked';
 
 interface Props {
-  firstmessage: boolean,
-  username: string,
-  message: string
+  firstmessage: boolean;
+  username: string;
+  message: string;
 }
 
 class MessageListItem extends React.Component<Props, {}> {
@@ -22,8 +23,8 @@ class MessageListItem extends React.Component<Props, {}> {
     return (
       <div
         className={this.props.firstmessage ? 'chat-message-first' : 'chat-message'}
-        dangerouslySetInnerHTML={this.rawMarkup()}>
-      </div>
+        dangerouslySetInnerHTML={this.rawMarkup()}
+      />
     );
   }
 }
