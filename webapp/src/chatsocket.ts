@@ -10,7 +10,7 @@ interface OnUserLeaveCallback {
 
 interface OnNewMessageCallback {
   id: string;
-  f: (username, message: string) => void;
+  f: (username: any, message: string) => void;
 }
 
 class ChatSocket {
@@ -85,10 +85,10 @@ class ChatSocket {
   // End Callbacks
   //
 
-  private onOpen(event) {
+  private onOpen(event: any) {
   }
 
-  private onError(event) {
+  private onError(event: any) {
   }
 
   private onMessage(event: MessageEvent) {

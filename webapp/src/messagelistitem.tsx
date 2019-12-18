@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as marked from 'marked';
+import marked from 'marked';
 
 interface Props {
   firstmessage: boolean;
@@ -8,10 +8,6 @@ interface Props {
 }
 
 class MessageListItem extends React.Component<Props, {}> {
-  constructor(props: Props) {
-    super(props);
-  }
-
   rawMarkup() {
     let m = marked(this.props.message, {sanitize: true});
     m = m.replace(/(<|<\/)p/g, '$1span');

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
+import * as serviceWorker from './serviceWorker';
 import UserList from './userlist';
 import MessageList from './messagelist';
 import ChatInputBar from './chatinputbar';
@@ -25,4 +26,6 @@ ReactDOM.render(
   document.getElementById('content')
 );
 
+serviceWorker.unregister();
 ws.connect();
+

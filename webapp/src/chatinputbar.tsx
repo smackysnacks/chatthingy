@@ -6,11 +6,8 @@ interface Props {
 }
 
 class ChatInputBar extends React.Component<Props, {}> {
-  constructor(props: Props) {
-    super(props);
-  }
-
-  onReturnPressed(event) {
+  // onReturnPressed(event: React.KeyboardEvent<HTMLInputElement>) {
+  onReturnPressed(event: any) {
     if (event.keyCode === 13 && event.target.value.length > 0) { // <enter key>
       let s = event.target.value.substr(0, 200);
       event.target.value = '';

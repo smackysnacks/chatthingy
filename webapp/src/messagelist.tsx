@@ -18,6 +18,7 @@ interface State {
 }
 
 class MessageList extends React.Component<Props, State> {
+  private container: HTMLDivElement;
   constructor(props: Props) {
     super(props);
 
@@ -42,8 +43,7 @@ class MessageList extends React.Component<Props, State> {
 
   componentDidUpdate() {
     // scroll to bottom of messages
-    let node = ReactDOM.findDOMNode(this);
-    node.scrollTop = node.scrollHeight;
+    this.container.scrollTop = this.container.scrollHeight;
   }
 
   render() {
@@ -57,7 +57,7 @@ class MessageList extends React.Component<Props, State> {
     }
 
     return (
-      <div className="messages">
+      <div className="messages" ref={(container) => this.container = container}>
         {messageListItems}
       </div>
     );

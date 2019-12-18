@@ -5,10 +5,6 @@ interface Props {
 }
 
 class UserListItem extends React.Component<Props, {}> {
-  constructor(props: Props) {
-    super(props);
-  }
-
   render() {
     return (
       <li>{this.props.name}</li>
