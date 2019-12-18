@@ -14,7 +14,7 @@ interface OnNewMessageCallback {
 }
 
 class ChatSocket {
-  private websocketUrl: string;
+  private readonly websocketUrl: string;
   private socket: WebSocket;
   private onUserJoinCallbacks: OnUserJoinCallback[];
   private onUserLeaveCallbacks: OnUserLeaveCallback[];
@@ -26,11 +26,8 @@ class ChatSocket {
     this.onUserJoinCallbacks = [];
     this.onUserLeaveCallbacks = [];
     this.onNewMessageCallbacks = [];
-  }
 
-  public connect() {
     this.socket = new WebSocket(this.websocketUrl);
-
     this.socket.onopen = (event) => this.onOpen(event);
     this.socket.onerror = (event) => this.onError(event);
     this.socket.onmessage = (event) => this.onMessage(event);

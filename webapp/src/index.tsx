@@ -27,5 +27,4 @@ ReactDOM.render(
 );
 
 serviceWorker.unregister();
-ws.connect();
 

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 
 import MessageListItem from './messagelistitem';
 import ChatSocket from './chatsocket';
@@ -18,14 +17,14 @@ interface State {
 }
 
 class MessageList extends React.Component<Props, State> {
-  private container: HTMLDivElement;
+  private container: HTMLDivElement | null = null;
   constructor(props: Props) {
     super(props);
 
     this.state = {messages: []};
   }
 
-  onNewMessage(username, message: string) {
+  onNewMessage(username: string, message: string) {
     this.state.messages.push({username: username, message: message});
     this.setState(this.state);
   }
@@ -43,7 +42,9 @@ class MessageList extends React.Component<Props, State> {
 
   componentDidUpdate() {
     // scroll to bottom of messages
-    this.container.scrollTop = this.container.scrollHeight;
+    if (this.container) {
+      this.container.scrollTop = this.container.scrollHeight;
+    }
   }
 
   render() {
