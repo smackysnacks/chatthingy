@@ -1,8 +1,10 @@
 package main
 
 import (
-	"github.com/gorilla/mux"
+	"fmt"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 const STATIC_ROOT = "webapp/build/"
@@ -18,5 +20,6 @@ func main() {
 	r.HandleFunc("/ws", Websocket)
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir(STATIC_ROOT)))
 
+	fmt.Println("Listening on http://localhost:8080/")
 	http.ListenAndServe(":8080", r)
 }
